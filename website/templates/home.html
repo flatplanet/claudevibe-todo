@@ -1,2 +1,124 @@
-<h1>Welcome to my Calendar</h1>
-<p>Daily Planner - John Elder</p>
+{% extends 'base.html' %}
+
+{% block title %}TaskFlow - Daily Planner{% endblock %}
+
+{% block extra_head %}
+<style>
+    .calendar-table {
+        font-size: 0.9rem;
+    }
+    .calendar-day {
+        height: 80px;
+        width: 14.28%;
+        border: 1px solid #dee2e6;
+        cursor: pointer;
+        transition: background-color 0.2s;
+        position: relative;
+        vertical-align: top;
+        padding: 8px;
+    }
+    .calendar-day:hover {
+        background-color: #f8f9fa;
+    }
+    .calendar-day.today {
+        background-color: #e3f2fd;
+        border-color: #2196f3;
+    }
+    .calendar-day.other-month {
+        color: #adb5bd;
+        background-color: #f8f9fa;
+    }
+    .day-number {
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+    .calendar-header {
+        background-color: #343a40;
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    {% if user.is_authenticated %}
+        <div class="text-center mb-4">
+            <h1 class="display-5">Welcome back, {{ user.username }}!</h1>
+            <p class="lead text-muted">Click any day to manage your tasks</p>
+        </div>
+        
+        <!-- Calendar Navigation -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <a href="?month={{ prev_month }}&year={{ prev_year }}" class="btn btn-outline-primary">
+                        <i class="fas fa-chevron-left me-2"></i>Previous
+                    </a>
+                    <h2 class="text-center mb-0">{{ month_name }} {{ year }}</h2>
+                    <a href="?month={{ next_month }}&year={{ next_year }}" class="btn btn-outline-primary">
+                        Next<i class="fas fa-chevron-right ms-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Calendar -->
+        <div class="card shadow">
+            <div class="card-body p-0">
+                <table class="table table-bordered mb-0 calendar-table">
+                    <!-- Calendar Header -->
+                    <thead class="calendar-header">
+                        <tr>
+                            <th class="text-center py-3">Sunday</th>
+                            <th class="text-center py-3">Monday</th>
+                            <th class="text-center py-3">Tuesday</th>
+                            <th class="text-center py-3">Wednesday</th>
+                            <th class="text-center py-3">Thursday</th>
+                            <th class="text-center py-3">Friday</th>
+                            <th class="text-center py-3">Saturday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for week in month_days %}
+                            <tr>
+                                {% for day in week %}
+                                    <td class="calendar-day 
+                                        {% if day == 0 %}other-month{% endif %}
+                                        {% if day == today.day and month == today.month and year == today.year %}today{% endif %}"
+                                        {% if day != 0 %}onclick="location.href='{% url 'day_detail' year month day %}'"{% endif %}>
+                                        {% if day != 0 %}
+                                            <div class="day-number">{{ day }}</div>
+                                        {% endif %}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <small class="text-muted">
+                <i class="fas fa-info-circle me-1"></i>
+                Click on any day to view and manage your tasks for that date
+            </small>
+        </div>
+        
+    {% else %}
+        <div class="text-center mb-4">
+            <h1 class="display-4">Welcome to TaskFlow</h1>
+            <p class="lead">Your Personal Daily Planner</p>
+        </div>
+        
+        <div class="card">
+            <div class="card-body text-center">
+                <h5 class="card-title">Access Your Calendar</h5>
+                <p class="card-text">Please login or register to access your personalized calendar.</p>
+                <a href="{% url 'login' %}" class="btn btn-primary me-2">Login</a>
+                <a href="{% url 'register' %}" class="btn btn-outline-primary">Register</a>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
