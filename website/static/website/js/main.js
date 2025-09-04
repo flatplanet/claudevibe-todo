@@ -108,14 +108,26 @@ TaskFlow.tasks = {
         
         taskInputs.forEach((input, index) => {
             console.log(`Binding task input ${index + 1}: ID=${input.dataset.taskId}, Hour=${input.dataset.hour}`);
+            
+            // Store the initial value when focus starts
+            input.addEventListener('focus', (e) => {
+                e.target.dataset.originalValue = e.target.value;
+            });
+            
             // Auto-save on input (with debounce)
             input.addEventListener('input', (e) => {
                 this.handleTaskInput(e.target);
             });
             
-            // Save on blur (immediate)
+            // Save on blur only if value changed and is not empty
             input.addEventListener('blur', (e) => {
-                this.saveTaskImmediate(e.target);
+                const currentValue = e.target.value.trim();
+                const originalValue = e.target.dataset.originalValue || '';
+                
+                // Only save if the value actually changed
+                if (currentValue !== originalValue) {
+                    this.saveTaskImmediate(e.target);
+                }
             });
             
             // Handle Enter key
@@ -138,10 +150,14 @@ TaskFlow.tasks = {
             statusDiv.style.opacity = '0';
         }
         
-        // Debounce saving
-        this.saveTimeout = setTimeout(() => {
-            this.saveTask(inputElement);
-        }, TaskFlow.config.saveTimeout);
+        // Only save if there's actual content
+        const currentValue = inputElement.value.trim();
+        if (currentValue.length > 0) {
+            // Debounce saving
+            this.saveTimeout = setTimeout(() => {
+                this.saveTask(inputElement);
+            }, TaskFlow.config.saveTimeout);
+        }
     },
     
     // Save task immediately (no debounce)

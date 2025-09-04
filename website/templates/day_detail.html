@@ -28,31 +28,27 @@
             <div class="card-body p-0">
                 <!-- Time Slots -->
                 {% for hour, task in tasks.items %}
-                    <div class="time-slot px-4">
-                        <div class="row align-items-center">
-                            <div class="col-2">
-                                <div class="time-label">
-                                    {% if hour < 12 %}
-                                        {% if hour == 4 %}4:00 AM{% elif hour == 5 %}5:00 AM{% elif hour == 6 %}6:00 AM{% elif hour == 7 %}7:00 AM{% elif hour == 8 %}8:00 AM{% elif hour == 9 %}9:00 AM{% elif hour == 10 %}10:00 AM{% elif hour == 11 %}11:00 AM{% endif %}
-                                    {% elif hour == 12 %}
-                                        12:00 PM
-                                    {% else %}
-                                        {% if hour == 13 %}1:00 PM{% elif hour == 14 %}2:00 PM{% elif hour == 15 %}3:00 PM{% elif hour == 16 %}4:00 PM{% elif hour == 17 %}5:00 PM{% elif hour == 18 %}6:00 PM{% elif hour == 19 %}7:00 PM{% elif hour == 20 %}8:00 PM{% elif hour == 21 %}9:00 PM{% elif hour == 22 %}10:00 PM{% endif %}
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-10">
-                                <input 
-                                    type="text" 
-                                    class="task-input" 
-                                    placeholder="Enter your task or appointment..."
-                                    value="{{ task.task_text|default:'' }}"
-                                    data-task-id="{{ task.id }}"
-                                    data-hour="{{ hour }}"
-                                >
-                                <div class="save-status text-success" style="opacity: 0;">
-                                    <i class="fas fa-check me-1"></i>Saved
-                                </div>
+                    <div class="time-slot">
+                        <div class="time-label">
+                            {% if hour < 12 %}
+                                {% if hour == 4 %}4:00 AM{% elif hour == 5 %}5:00 AM{% elif hour == 6 %}6:00 AM{% elif hour == 7 %}7:00 AM{% elif hour == 8 %}8:00 AM{% elif hour == 9 %}9:00 AM{% elif hour == 10 %}10:00 AM{% elif hour == 11 %}11:00 AM{% endif %}
+                            {% elif hour == 12 %}
+                                12:00 PM
+                            {% else %}
+                                {% if hour == 13 %}1:00 PM{% elif hour == 14 %}2:00 PM{% elif hour == 15 %}3:00 PM{% elif hour == 16 %}4:00 PM{% elif hour == 17 %}5:00 PM{% elif hour == 18 %}6:00 PM{% elif hour == 19 %}7:00 PM{% elif hour == 20 %}8:00 PM{% elif hour == 21 %}9:00 PM{% elif hour == 22 %}10:00 PM{% endif %}
+                            {% endif %}
+                        </div>
+                        <div style="flex-grow: 1;">
+                            <input 
+                                type="text" 
+                                class="task-input" 
+                                placeholder="Enter your task or appointment..."
+                                value="{{ task.task_text|default:'' }}"
+                                data-task-id="{{ task.id }}"
+                                data-hour="{{ hour }}"
+                            >
+                            <div class="save-status text-success" style="opacity: 0; font-size: 12px; margin-top: 5px;">
+                                <i class="fas fa-check me-1"></i>Saved
                             </div>
                         </div>
                     </div>

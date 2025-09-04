@@ -43,8 +43,10 @@
 /* Day Detail / Schedule Styles */
 .time-slot {
     border-bottom: 1px solid #e9ecef;
-    padding: 15px 0;
+    padding: 15px 20px;
     transition: background-color 0.2s;
+    display: flex;
+    align-items: baseline;
 }
 
 .time-slot:hover {
@@ -54,7 +56,11 @@
 .time-label {
     font-weight: 600;
     color: #495057;
-    min-width: 80px;
+    width: 80px;
+    text-align: right;
+    margin-right: 20px;
+    flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .task-input {
@@ -64,6 +70,9 @@
     width: 100%;
     transition: all 0.3s;
     background-color: #fff;
+    font-size: 14px;
+    line-height: 1.4;
+    flex-grow: 1;
 }
 
 .task-input:focus {
