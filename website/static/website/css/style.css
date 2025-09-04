@@ -1,0 +1,352 @@
+/* TaskFlow - Custom Styles */
+
+/* Calendar Styles */
+.calendar-table {
+    font-size: 0.9rem;
+}
+
+.calendar-day {
+    height: 80px;
+    width: 14.28%;
+    border: 1px solid #dee2e6;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative;
+    vertical-align: top;
+    padding: 8px;
+}
+
+.calendar-day:hover {
+    background-color: #f8f9fa;
+}
+
+.calendar-day.today {
+    background-color: #e3f2fd;
+    border-color: #2196f3;
+}
+
+.calendar-day.other-month {
+    color: #adb5bd;
+    background-color: #f8f9fa;
+}
+
+.day-number {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.calendar-header {
+    background-color: #343a40;
+    color: white;
+}
+
+/* Day Detail / Schedule Styles */
+.time-slot {
+    border-bottom: 1px solid #e9ecef;
+    padding: 15px 0;
+    transition: background-color 0.2s;
+}
+
+.time-slot:hover {
+    background-color: #f8f9fa;
+}
+
+.time-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 80px;
+}
+
+.task-input {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 15px;
+    width: 100%;
+    transition: all 0.3s;
+    background-color: #fff;
+}
+
+.task-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    outline: none;
+}
+
+.task-input.saved {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.save-status {
+    font-size: 0.8rem;
+    margin-top: 5px;
+    height: 20px;
+}
+
+.schedule-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* General Layout Improvements */
+.main-content {
+    min-height: calc(100vh - 120px);
+}
+
+/* Custom Button Styles */
+.btn-taskflow {
+    background-color: #2196f3;
+    border-color: #2196f3;
+    color: white;
+}
+
+.btn-taskflow:hover {
+    background-color: #1976d2;
+    border-color: #1976d2;
+    color: white;
+}
+
+/* Card Enhancements */
+.card-custom {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.card-header-custom {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px 10px 0 0;
+}
+
+/* Animation Classes */
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-in {
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Loading States */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Form Enhancements */
+.form-control:focus {
+    border-color: #2196f3;
+    box-shadow: 0 0 0 0.2rem rgba(33, 150, 243, 0.25);
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+}
+
+/* Alert Customizations */
+.alert-custom {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* Navbar Enhancements */
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.navbar-nav .dropdown-menu {
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border: none;
+}
+
+.navbar-nav .dropdown-item {
+    padding: 10px 20px;
+    transition: all 0.2s;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #2196f3;
+}
+
+/* Footer Styles */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .calendar-day {
+        height: 60px;
+        font-size: 0.8rem;
+    }
+    
+    .day-number {
+        font-size: 1rem;
+    }
+    
+    .time-label {
+        min-width: 60px;
+        font-size: 0.9rem;
+    }
+    
+    .schedule-container {
+        margin: 0;
+        padding: 0 10px;
+    }
+    
+    .display-4, .display-5, .display-6 {
+        font-size: 2rem;
+    }
+    
+    /* Better calendar navigation on tablets */
+    .calendar-navigation h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendar-day {
+        height: 45px;
+        padding: 2px;
+        font-size: 0.75rem;
+    }
+    
+    .day-number {
+        font-size: 0.9rem;
+    }
+    
+    .task-input {
+        padding: 8px 12px;
+    }
+    
+    .time-slot {
+        padding: 10px 0;
+    }
+    
+    /* Mobile calendar navigation */
+    .calendar-navigation {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    
+    .calendar-navigation h2 {
+        font-size: 1.25rem;
+        order: 1;
+    }
+    
+    .calendar-navigation .btn {
+        font-size: 0.875rem;
+        padding: 8px 16px;
+    }
+    
+    /* Mobile calendar table adjustments */
+    .calendar-table {
+        font-size: 0.75rem;
+    }
+    
+    .calendar-header th {
+        padding: 8px 2px;
+        font-size: 0.7rem;
+    }
+    
+    /* Make day names shorter on small screens */
+    .calendar-header th:nth-child(1):after { content: "Sun"; }
+    .calendar-header th:nth-child(2):after { content: "Mon"; }
+    .calendar-header th:nth-child(3):after { content: "Tue"; }
+    .calendar-header th:nth-child(4):after { content: "Wed"; }
+    .calendar-header th:nth-child(5):after { content: "Thu"; }
+    .calendar-header th:nth-child(6):after { content: "Fri"; }
+    .calendar-header th:nth-child(7):after { content: "Sat"; }
+    
+    .calendar-header th {
+        font-size: 0;
+    }
+    
+    /* Smaller display titles on mobile */
+    .display-4, .display-5, .display-6 {
+        font-size: 1.75rem;
+    }
+    
+    .lead {
+        font-size: 1rem;
+    }
+}
+
+/* Extra small screens (320px and below) */
+@media (max-width: 320px) {
+    .container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .calendar-day {
+        height: 40px;
+        padding: 1px;
+        font-size: 0.7rem;
+    }
+    
+    .day-number {
+        font-size: 0.8rem;
+    }
+    
+    .calendar-header th {
+        padding: 6px 1px;
+    }
+    
+    .calendar-navigation .btn {
+        font-size: 0.75rem;
+        padding: 6px 12px;
+    }
+    
+    .calendar-navigation h2 {
+        font-size: 1.1rem;
+    }
+    
+    .display-4, .display-5, .display-6 {
+        font-size: 1.5rem;
+    }
+    
+    .card {
+        margin: 0 -5px;
+    }
+    
+    /* Adjust button spacing */
+    .btn-group .btn,
+    .btn + .btn {
+        margin-left: 5px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .navbar, footer, .btn {
+        display: none !important;
+    }
+    
+    .calendar-day {
+        border: 1px solid #000 !important;
+        background: white !important;
+    }
+    
+    .card {
+        border: 1px solid #000 !important;
+        box-shadow: none !important;
+    }
+}

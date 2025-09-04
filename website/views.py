@@ -133,3 +133,68 @@ def save_task(request):
 			return JsonResponse({'status': 'error', 'message': str(e)})
 	
 	return JsonResponse({'status': 'error', 'message': 'Invalid request'})
+
+
+@login_required
+def profile(request):
+	if request.method == 'POST':
+		# Get form data
+		first_name = request.POST.get('first_name', '').strip()
+		last_name = request.POST.get('last_name', '').strip()
+		email = request.POST.get('email', '').strip()
+		username = request.POST.get('username', '').strip()
+		
+		# Check if username is already taken by another user
+		if username != request.user.username and User.objects.filter(username=username).exists():
+			messages.error(request, 'Username is already taken.')
+			return redirect('profile')
+		
+		# Check if email is already taken by another user
+		if email != request.user.email and User.objects.filter(email=email).exists():
+			messages.error(request, 'Email is already registered to another account.')
+			return redirect('profile')
+		
+		# Update user information
+		user = request.user
+		user.first_name = first_name
+		user.last_name = last_name
+		user.email = email
+		user.username = username
+		user.save()
+		
+		messages.success(request, 'Profile updated successfully!')
+		return redirect('profile')
+	
+	return render(request, 'profile.html', {'user': request.user})
+
+
+@login_required
+def change_password(request):
+	if request.method == 'POST':
+		current_password = request.POST.get('current_password')
+		new_password1 = request.POST.get('new_password1')
+		new_password2 = request.POST.get('new_password2')
+		
+		# Check current password
+		if not request.user.check_password(current_password):
+			messages.error(request, 'Current password is incorrect.')
+			return redirect('profile')
+		
+		# Check if new passwords match
+		if new_password1 != new_password2:
+			messages.error(request, 'New passwords do not match.')
+			return redirect('profile')
+		
+		# Check password length
+		if len(new_password1) < 6:
+			messages.error(request, 'New password must be at least 6 characters long.')
+			return redirect('profile')
+		
+		# Update password
+		request.user.set_password(new_password1)
+		request.user.save()
+		
+		messages.success(request, 'Password changed successfully! Please log in again.')
+		return redirect('login')
+	
+	return redirect('profile')
